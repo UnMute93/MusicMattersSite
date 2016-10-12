@@ -18,12 +18,16 @@ namespace MusicMattersSite.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection")
         {
         }
+
+        public DbSet<ApplicationUser> AppUser { get; set; }
+        public DbSet<>
+
 
         public static ApplicationDbContext Create()
         {
