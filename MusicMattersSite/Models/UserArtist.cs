@@ -9,9 +9,9 @@ namespace MusicMattersSite.Models
 {
     public class UserArtist
     {
-        [Key, ForeignKey("AppUser")]
-        public int UserID { get; set; }
-        [Key, ForeignKey("Artist")]
+        [Key, ForeignKey("AppUser"), Column(Order = 0)]
+        public string UserID { get; set; }
+        [Key, ForeignKey("Artist"), Column(Order = 1)]
         public int ArtistID { get; set; }
         public Nullable<int> Ranking { get; set; }
 

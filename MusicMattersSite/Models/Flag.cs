@@ -9,6 +9,7 @@ namespace MusicMattersSite.Models
     public class Flag
     {
         public int FlagID { get; set; }
+        [Required]
         public string Name { get; set; }
         
         public virtual ICollection<Flaggable> Flaggable { get; set; }

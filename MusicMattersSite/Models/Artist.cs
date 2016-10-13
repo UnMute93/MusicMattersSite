@@ -9,6 +9,7 @@ namespace MusicMattersSite.Models
     public class Artist
     {
         public int ArtistID { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }

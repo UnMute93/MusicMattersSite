@@ -26,7 +26,15 @@ namespace MusicMattersSite.Models
         }
 
         public DbSet<ApplicationUser> AppUser { get; set; }
-        public DbSet<>
+        public DbSet<Artist> Artist { get; set; }
+        public DbSet<Album> Album { get; set; }
+        public DbSet<Song> Song { get; set; }
+        public DbSet<Comment> Comment { get; set; }
+        public DbSet<CommentHistory> CommentHistory { get; set; }
+        public DbSet<Flag> Flag { get; set; }
+        public DbSet<Flaggable> Flaggable { get; set; }
+        public DbSet<UserArtist> UserArtist { get; set; }
+        public DbSet<UserProfile> UserProfile { get; set; }
 
 
         public static ApplicationDbContext Create()

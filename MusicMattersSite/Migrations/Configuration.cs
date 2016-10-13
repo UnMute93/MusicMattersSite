@@ -14,6 +14,7 @@ namespace MusicMattersSite.Migrations
         {
             AutomaticMigrationsEnabled = true;
             ContextKey = "MusicMattersSite.Models.ApplicationDbContext";
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(MusicMattersSite.Models.ApplicationDbContext context)
@@ -30,6 +31,8 @@ namespace MusicMattersSite.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = new ApplicationUser();

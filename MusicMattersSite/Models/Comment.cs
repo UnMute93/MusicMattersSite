@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusicMattersSite.Models
 {
     public class Comment
     {
         public int CommentID { get; set; }
-        public int UserID { get; set; }
+        [ForeignKey("AppUser")]
+        public string UserID { get; set; }
+        [Required]
         public string Content { get; set; }
-        [ForeignKey("Comment")]
+        [ForeignKey("ParentComment")]
         public Nullable<int> ParentID { get; set; }
         public System.DateTime TimeCreated { get; set; }
         public Nullable<System.DateTime> TimeEdited { get; set; }

@@ -10,6 +10,7 @@ namespace MusicMattersSite.Models
     {
         public int SongID { get; set; }
         public Nullable<int> AlbumID { get; set; }
+        [Required]
         public string Name { get; set; }
         public Nullable<System.TimeSpan> Length { get; set; }
         public Nullable<byte> IsSingle { get; set; }
