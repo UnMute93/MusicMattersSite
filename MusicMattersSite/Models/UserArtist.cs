@@ -14,6 +14,7 @@ namespace MusicMattersSite.Models
         [Key, ForeignKey("Artist"), Column(Order = 1)]
         public int ArtistID { get; set; }
         public Nullable<int> Ranking { get; set; }
+        public bool IsRanked { get; set; }
 
         public virtual Artist Artist { get; set; }
         public virtual ApplicationUser AppUser { get; set; }

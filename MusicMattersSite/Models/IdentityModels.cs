@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace MusicMattersSite.Models
 {
@@ -16,6 +18,8 @@ namespace MusicMattersSite.Models
             // Add custom user claims here
             return userIdentity;
         }
+        //public virtual List<Comment> AuthoredComments { get; set; }
+        //public virtual List<Comment> RecievedComments { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext
@@ -35,7 +39,17 @@ namespace MusicMattersSite.Models
         public DbSet<Flaggable> Flaggable { get; set; }
         public DbSet<UserArtist> UserArtist { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
+        
+        /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Comment>().MapToStoredProcedures(s => s.Insert(u => u.HasName("[dbo].[comment_insert_sortkey]")));
+            //modelBuilder.Entity<ApplicationUser>().HasMany(u => u.AuthoredComments).WithRequired(u => u.UserAuthor).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<ApplicationUser>().HasMany(u => u.RecievedComments).WithRequired(u => u.UserRecipient).WillCascadeOnDelete(false);
 
+            //modelBuilder.Entity<Comment>().HasRequired(u => u.UserAuthor).WithMany(u => u.AuthoredComments).HasForeignKey(u => u.UserAuthorID).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Comment>().HasRequired(u => u.UserRecipient).WithMany(u => u.RecievedComments).HasForeignKey(u => u.UserRecipientID).WillCascadeOnDelete(false);
+            base.OnModelCreating(modelBuilder);
+        }*/
 
         public static ApplicationDbContext Create()
         {

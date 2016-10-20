@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNet.Identity;
+@model MusicMattersSite.Models.ProfileViewModel
+
+@{
+    ViewBag.Title = "Profiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="UserInfo">
+    @Model.UserName<br />
+    @if (Model.ShowEmail == 1)
+    {
+        @Model.Email
+    }
+</div>
+
+<div id="ProfileContent">
+    <div id="Bio">
+        @Model.Bio
+    </div>
+
+    <div id="ArtistList">
+        @foreach (var item in Model.Artists)
+        {
+            if (item.Ranking != 0)
+            {
+                Html.Raw(item.Ranking + ". ");
+            }
+            Html.ActionLink(item.Artist, "ArtistDetails", item.Artist);
+            <br />
+        }
+    </div>
+</div>
+
+@if (Request.IsAuthenticated)
+{
+    <div id="CommentField">
+        @using (@Html.BeginForm("AddComment", "Home", FormMethod.Post))
+        {
+            @Html.TextAreaFor(m => m.Comment.Content)
+            @Html.HiddenFor(m => m.UserName)
+            @Html.HiddenFor(m => m.UserID)
+            <input type="submit" value="Add comment" />
+        }
+    </div>
+}
+
+<div>
+    @for (int i=0; i < Model.Comments.Count(); i++)
+    {
+        <div class="Comment">
+            <strong>@Model.Comments[i].AuthorName</strong>
+            @Model.Comments[i].TimeCreated.ToString()
+            @if (Model.Comments[i].TimeEdited != null) { <i>*Edited @Model.Comments[i].TimeEdited.ToString();</i> }
+            @if (User.Identity.GetUserId() == Model.Comments[i].AuthorID)
+            {
+                <button class="EditCommentButton">Edit</button>
+            }
+            <p>@Model.Comments[i].Content</p>
+            <div class="EditCommentField" style="display:none">
+                @using (Html.BeginForm("EditComment", "Home", FormMethod.Post))
+                {
+                    @Html.TextAreaFor(m => m.Comment.Content, new { value = Model.Comments[i].Content })
+                    @Html.HiddenFor(m => m.UserName)
+                    @Html.HiddenFor(m => m.Comment.CommentID)
+                }
+            </div>
+        </div>
+    }
+</div>
+
