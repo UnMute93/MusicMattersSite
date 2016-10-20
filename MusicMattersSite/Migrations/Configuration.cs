@@ -54,7 +54,7 @@ namespace MusicMattersSite.Migrations
             );
 
             context.Artist.AddOrUpdate(
-                new Artist { Name = "Radiohead", Image = "../Images/Artists/Radiohead/radiohead.jpg", Description = "Radiohead are an English rock band from Abingdon, Oxfordshire, formed in 1985. The band consists of Thom Yorke (lead vocals, guitar, piano, keyboards), Jonny Greenwood (lead guitar, keyboards, other instruments), Ed O'Brien (guitar, backing vocals), Colin Greenwood (bass), and Phil Selway (drums, percussion, backing vocals). They have worked with producer Nigel Godrich and cover artist Stanley Donwood since 1994.", IsAdminApproved = 1, ActiveFrom = new DateTime(1985, 1, 1) }
+                new Artist { ArtistID = 4, Name = "Radiohead", Image = "~/Images/Artists/Radiohead/radiohead.jpg", Description = "Radiohead are an English rock band from Abingdon, Oxfordshire, formed in 1985. The band consists of Thom Yorke (lead vocals, guitar, piano, keyboards), Jonny Greenwood (lead guitar, keyboards, other instruments), Ed O'Brien (guitar, backing vocals), Colin Greenwood (bass), and Phil Selway (drums, percussion, backing vocals). They have worked with producer Nigel Godrich and cover artist Stanley Donwood since 1994.", IsAdminApproved = 1, ActiveFrom = new DateTime(1985, 1, 1) }
             );
 
             context.UserArtist.AddOrUpdate(
@@ -62,8 +62,8 @@ namespace MusicMattersSite.Migrations
             );
 
             context.Flag.AddOrUpdate(
-                new Flag { Name = "Offensive Content" },
-                new Flag { Name = "Flaming" }
+                new Flag { FlagID = 7, Name = "Offensive Content" },
+                new Flag { FlagID = 8, Name = "Flaming" }
             );
         }
     }

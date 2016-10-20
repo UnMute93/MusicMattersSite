@@ -10,6 +10,7 @@ namespace MusicMattersSite.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
             List<string> model = new List<string>();
@@ -43,65 +44,76 @@ namespace MusicMattersSite.Controllers
             ProfileViewModel model = new ProfileViewModel();
             if (UserName != null)
             {
-                using (var db = new ApplicationDbContext())
+                
+                var userResult = from item in db.AppUser
+                                    where item.UserName == UserName
+                                    select item;
+                ApplicationUser user = userResult.FirstOrDefault();
+                if (user != null)
                 {
-                    var userResult = from item in db.AppUser
-                                     where item.UserName == UserName
-                                     select item;
-                    ApplicationUser user = userResult.FirstOrDefault();
-                    if (user != null)
+                    var profileResult = from item in db.UserProfile
+                                        where item.UserID == user.Id
+                                        select item;
+                    UserProfile profile = profileResult.FirstOrDefault();
+
+                    var commentsResult = from item in db.Comment
+                                            join appuser in db.AppUser
+                                            on item.UserRecipientID equals appuser.Id
+                                            where item.UserRecipientID == user.Id
+                                            orderby item.SortKey ascending
+                                            select new { item, item.UserAuthor.UserName };
+                    List<ProfileComment> commentList = new List<ProfileComment>();
+                    foreach (var item in commentsResult)
                     {
-                        var profileResult = from item in db.UserProfile
-                                            where item.UserID == user.Id
-                                            select item;
-                        UserProfile profile = profileResult.FirstOrDefault();
-
-                        var commentsResult = from item in db.Comment
-                                             join appuser in db.AppUser
-                                             on item.UserRecipientID equals appuser.Id
-                                             where item.UserRecipientID == user.Id
-                                             orderby item.SortKey ascending
-                                             select new { item, item.UserAuthor.UserName };
-                        List<ProfileComment> commentList = new List<ProfileComment>();
-                        foreach (var item in commentsResult)
-                        {
-                            ProfileComment pc = new ProfileComment();
-                            pc.CommentID = item.item.CommentID;
-                            pc.AuthorID = item.item.UserAuthorID;
-                            pc.AuthorName = item.UserName;
-                            pc.Content = item.item.Content;
-                            pc.TimeCreated = item.item.TimeCreated;
-                            pc.TimeEdited = item.item.TimeEdited;
-                            commentList.Add(pc);
-                        }
-
-                        var artistsResult = from item in db.Artist
-                                            join ranking in db.UserArtist
-                                            on item.ArtistID equals ranking.ArtistID
-                                            join u in db.AppUser
-                                            on ranking.UserID equals u.Id
-                                            where u.Id == user.Id
-                                            orderby ranking.IsRanked descending, ranking.Ranking ascending
-                                            select new { item.Name, ranking.Ranking };
-                        List<ArtistRanking> artistList = new List<ArtistRanking>();
-                        foreach (var item in artistsResult)
-                        {
-                            ArtistRanking ar = new ArtistRanking();
-                            ar.Artist = item.Name;
-                            ar.Ranking = item.Ranking ?? 0;
-                            artistList.Add(ar);
-                        }
-
-                        model.UserID = user.Id;
-                        model.UserName = user.UserName;
-                        model.Email = user.Email;
-                        model.Bio = profile.Bio;
-                        model.ShowEmail = profile.ShowEmail;
-                        model.BackgroundColor = profile.BackgroundColor;
-                        model.Comments = commentList;
-                        model.Artists = artistList;
-                        return View(model);
+                        ProfileComment pc = new ProfileComment();
+                        pc.CommentID = item.item.CommentID;
+                        pc.AuthorID = item.item.UserAuthorID;
+                        pc.AuthorName = item.UserName;
+                        pc.Content = item.item.Content;
+                        pc.TimeCreated = item.item.TimeCreated;
+                        pc.TimeEdited = item.item.TimeEdited;
+                        commentList.Add(pc);
                     }
+
+                    var artistsResult = from item in db.Artist
+                                        join ranking in db.UserArtist
+                                        on item.ArtistID equals ranking.ArtistID
+                                        join u in db.AppUser
+                                        on ranking.UserID equals u.Id
+                                        where u.Id == user.Id
+                                        orderby ranking.IsRanked descending, ranking.Ranking ascending
+                                        select new { item.Name, ranking.Ranking };
+                    List<ArtistRanking> artistList = new List<ArtistRanking>();
+                    foreach (var item in artistsResult)
+                    {
+                        ArtistRanking ar = new ArtistRanking();
+                        ar.Artist = item.Name;
+                        ar.Ranking = item.Ranking ?? 0;
+                        artistList.Add(ar);
+                    }
+
+                    var flagsResult = from item in db.Flag
+                                      select item;
+                    List<Flag> flagList = new List<Flag>();
+                    foreach (var item in flagsResult)
+                    {
+                        Flag f = new Flag();
+                        f.FlagID = item.FlagID;
+                        f.Name = item.Name;
+                        flagList.Add(f);
+                    }
+
+                    model.UserID = user.Id;
+                    model.UserName = user.UserName;
+                    model.Email = user.Email;
+                    model.Bio = profile.Bio;
+                    model.ShowEmail = profile.ShowEmail;
+                    model.BackgroundColor = profile.BackgroundColor;
+                    model.Comments = commentList;
+                    model.Artists = artistList;
+                    model.Flags = flagList;
+                    
+                    return View(model);
                 }
             }
             return Redirect("/");
@@ -109,33 +121,74 @@ namespace MusicMattersSite.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult AddComment(ProfileViewModel model)
+        public ActionResult ReportComment(ProfileViewModel model, int CommentIndex)
         {
-            if (ModelState.IsValidField("AddedComment.Content"))
+            //string flagName = model.Flag.Name;
+            /*var flagResult = from item in db.Flag
+                             where item.Name == flagName
+                             select item.FlagID;*/
+
+
+            Flaggable flaggable = new Flaggable();
+            flaggable.FlagID = model.Flag.FlagID;
+            flaggable.FlaggableType = "Comment";
+            flaggable.FlaggableID = model.Comments[CommentIndex].CommentID;
+            flaggable.Time = DateTime.Now;
+
+            db.Flaggable.Add(flaggable);
+            db.SaveChanges();
+
+            return RedirectToAction("Profiles", new { UserName = model.UserName });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult AddComment(ProfileViewModel model, int ParentID)
+        {
+            if (ModelState.IsValidField("Comment.Content"))
             {
                 string sortKey = "";
 
                 model.Comment.TimeCreated = DateTime.Now;
                 model.Comment.UserAuthorID = User.Identity.GetUserId();
                 model.Comment.UserRecipientID = model.UserID;
+                model.Comment.ParentID = ParentID;
 
-                using (var db = new ApplicationDbContext())
-                {
-                    db.Comment.Add(model.Comment);
-                    db.SaveChanges();
+                db.Comment.Add(model.Comment);
+                db.SaveChanges();
 
                     
 
-                    var prefixResult = from item in db.Comment
-                                       where item.CommentID == model.Comment.ParentID
-                                       select item.SortKey;
-                    if (prefixResult.FirstOrDefault() != null)
-                    {
-                        sortKey = prefixResult.FirstOrDefault() + ".";
-                    }
+                var prefixResult = from item in db.Comment
+                                    where item.CommentID == model.Comment.ParentID
+                                    select item.SortKey;
+                if (prefixResult.FirstOrDefault() != null)
+                {
+                    sortKey = prefixResult.FirstOrDefault() + ".";
+                }
 
-                    sortKey += model.Comment.CommentID.ToString("D4"); //Pads the string with 4 zeroes
-                    model.Comment.SortKey = sortKey;
+                sortKey += model.Comment.CommentID.ToString("D4"); //Pads the string with 4 zeroes
+                model.Comment.SortKey = sortKey;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Profiles", new { UserName = model.UserName });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult EditComment(ProfileViewModel model, int CommentIndex)
+        {
+            if (ModelState.IsValidField("Comment.Content") && User.Identity.GetUserId() == model.Comments[CommentIndex].AuthorID)
+            {
+                int id = model.Comments[CommentIndex].CommentID;
+                var commentResult = (from item in db.Comment
+                                    where item.CommentID == id
+                                    select item).FirstOrDefault();
+                if (commentResult != null)
+                {
+                    CreateCommentHistory(commentResult, "UPD");
+                    commentResult.Content = model.Comments[CommentIndex].Content;
+                    commentResult.TimeEdited = DateTime.Now;
                     db.SaveChanges();
                 }
             }
@@ -145,17 +198,36 @@ namespace MusicMattersSite.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult EditComment(ProfileViewModel model)
+        public ActionResult DeleteComment(ProfileViewModel model, int CommentIndex)
         {
-            using (var db = new ApplicationDbContext())
+            if (ModelState.IsValidField("Comment.Content") && User.Identity.GetUserId() == model.Comments[CommentIndex].AuthorID)
             {
-                /*var commentResult = from item in db.Comment
-                                    where item.CommentID == Request.RequestContext.HttpContext.*/
+                int id = model.Comments[CommentIndex].CommentID;
+                var commentResult = (from item in db.Comment
+                                     where item.CommentID == id
+                                     select item).FirstOrDefault();
+                if (commentResult != null)
+                {
+                    CreateCommentHistory(commentResult, "DEL");
+                    db.Comment.Remove(commentResult);
+                    db.SaveChanges();
+                }
             }
 
-                return RedirectToAction("Profiles", new { UserName = model.UserName });
+            return RedirectToAction("Profiles", new { UserName = model.UserName });
         }
 
+        public void CreateCommentHistory(Comment comment, string action)
+        {
+            CommentHistory history = new CommentHistory();
+            history.Action = action;
+            history.CommentId = comment.CommentID;
+            history.Content = comment.Content;
+            history.Time = comment.TimeEdited ?? comment.TimeCreated;
+
+            db.CommentHistory.Add(history);
+            db.SaveChanges();
+        }
             /*public ActionResult ArtistDetails(string artistName)
             {
                 using (var db = new ApplicationDbContext())

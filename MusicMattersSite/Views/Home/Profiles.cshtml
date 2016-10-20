@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity;
 @model MusicMattersSite.Models.ProfileViewModel
+@Scripts.Render("~/Scripts/Own/functions.js")
 
 @{
     ViewBag.Title = "Profiles";
@@ -20,13 +21,14 @@
     </div>
 
     <div id="ArtistList">
+        <h2>Artists this user likes:</h2>
         @foreach (var item in Model.Artists)
         {
             if (item.Ranking != 0)
             {
-                Html.Raw(item.Ranking + ". ");
+                @Html.Raw(item.Ranking + ". ")
             }
-            Html.ActionLink(item.Artist, "ArtistDetails", item.Artist);
+            @Html.ActionLink(item.Artist, "ArtistDetails", new { artistName = item.Artist })
             <br />
         }
     </div>
@@ -35,7 +37,7 @@
 @if (Request.IsAuthenticated)
 {
     <div id="CommentField">
-        @using (@Html.BeginForm("AddComment", "Home", FormMethod.Post))
+        @using (@Html.BeginForm("AddComment", "Home", new { ParentID = 0 }, FormMethod.Post))
         {
             @Html.TextAreaFor(m => m.Comment.Content)
             @Html.HiddenFor(m => m.UserName)
@@ -49,20 +51,70 @@
     @for (int i=0; i < Model.Comments.Count(); i++)
     {
         <div class="Comment">
+            <div class="ReportCommentField" style="display:none">
+                @using (Html.BeginForm("ReportComment", "Home", new { CommentIndex = i }, FormMethod.Post))
+                {
+                    for (int j=0; j < Model.Flags.Count(); j++)
+                    {
+                        @Html.RadioButtonFor(m => m.Flag.FlagID, Model.Flags[j].FlagID)
+                        @Model.Flags[j].Name<br />
+                    }
+                    @Html.HiddenFor(m => m.UserName);
+                    for (int j = 0; j < Model.Comments.Count(); j++)
+                    {
+                        @Html.HiddenFor(m => m.Comments[j].CommentID)
+                    }
+                    <input type="submit" value="Send report" />
+                }
+            </div>
             <strong>@Model.Comments[i].AuthorName</strong>
             @Model.Comments[i].TimeCreated.ToString()
-            @if (Model.Comments[i].TimeEdited != null) { <i>*Edited @Model.Comments[i].TimeEdited.ToString();</i> }
+            @if (Model.Comments[i].TimeEdited != null) { <i>*Edited @Model.Comments[i].TimeEdited.ToString()</i> }
+            <button class="ReplyCommentButton">Reply</button>
             @if (User.Identity.GetUserId() == Model.Comments[i].AuthorID)
             {
                 <button class="EditCommentButton">Edit</button>
+                using (Html.BeginForm("DeleteComment", "Home", new { CommentIndex = i }, FormMethod.Post, new { style = "display:inline" }))
+                {
+                        @Html.HiddenFor(m => m.UserName)
+                        for (int j=0; j < Model.Comments.Count(); j++)
+                        {
+                        @Html.HiddenFor(m => m.Comments[j].CommentID)
+                        @Html.HiddenFor(m => m.Comments[j].Content)
+                        @Html.HiddenFor(m => m.Comments[j].AuthorID)
+                    }
+                    <input type="submit" value="Delete" />
+                }
+            }
+            else
+            {
+                <button class="ReportCommentButton">Report</button>
             }
             <p>@Model.Comments[i].Content</p>
-            <div class="EditCommentField" style="display:none">
-                @using (Html.BeginForm("EditComment", "Home", FormMethod.Post))
+            @if (User.Identity.GetUserId() == Model.Comments[i].AuthorID)
+            {
+                <div class="EditCommentField" style="display:none">
+                    @using (Html.BeginForm("EditComment", "Home", new { CommentIndex = i }, FormMethod.Post))
+                    {
+                        @Html.EditorFor(m => m.Comments[i].Content)<br />
+                        @Html.HiddenFor(m => m.UserName);
+                        for (int j = 0; j < Model.Comments.Count(); j++)
+                        {
+                            @Html.HiddenFor(m => m.Comments[j].CommentID)
+                            @Html.HiddenFor(m => m.Comments[j].Content)
+                            @Html.HiddenFor(m => m.Comments[j].AuthorID)
+                        }
+                        <input type="submit" />
+                    }
+                </div>
+            }
+            <div class="ReplyCommentField" style="display:none">
+                @using (Html.BeginForm("AddComment", "Home", new { ParentID = Model.Comments[i].CommentID }, FormMethod.Post))
                 {
-                    @Html.TextAreaFor(m => m.Comment.Content, new { value = Model.Comments[i].Content })
+                    @Html.TextAreaFor(m => m.Comment.Content)
                     @Html.HiddenFor(m => m.UserName)
-                    @Html.HiddenFor(m => m.Comment.CommentID)
+                    @Html.HiddenFor(m => m.UserID)
+                    <input type="submit" value="Add comment" />
                 }
             </div>
         </div>

@@ -16,18 +16,10 @@ namespace MusicMattersSite.Models
         public byte ShowEmail { get; set; }
         public List<ArtistRanking> Artists { get; set; }
         public List<ProfileComment> Comments { get; set; }
+        public List<Flag> Flags { get; set; }
 
         public Comment Comment { get; set; }
-    }
-
-    public class AddCommentViewModel
-    {
-
-    }
-
-    public class EditCommentViewModel
-    {
-
+        public Flag Flag { get; set; }
     }
 
     public class ArtistRanking
@@ -41,7 +33,9 @@ namespace MusicMattersSite.Models
         public int CommentID { get; set; }
         public string AuthorID { get; set; }
         public string AuthorName { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
+        public int ParentID { get; set; }
         public DateTime TimeCreated { get; set; }
         public Nullable<DateTime> TimeEdited { get; set; }
     }

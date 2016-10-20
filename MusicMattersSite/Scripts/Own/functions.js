@@ -1,10 +1,22 @@
-﻿var editButtons = Document.prototype.getElementsByClassName("EditCommentButton");
+﻿jQuery(document).ready(function() {
+    $(".EditCommentButton").click(showEditComment);
+    $(".ReplyCommentButton").click(showReplyComment);
+    $(".ReportCommentButton").click(showReportComment);
+});
 
-for (var i=0; i < editButtons.length; i++) {
-    editButtons[i].addEventListener("click", showEditComment);
+function showEditComment() {
+    $(".EditCommentField").hide();
+    $(".ReplyCommentField").hide();
+    $(this).siblings(".EditCommentField").show();
 }
 
-function showEditComment(e) {
-    var div = e.target.parentNode.GetElementsByClassName("EditCommentField")[0];
-    div.style.display = "normal";
+function showReplyComment() {
+    $(".ReplyCommentField").hide();
+    $(".EditCommentField").hide();
+    $(this).siblings(".ReplyCommentField").show();
+}
+
+function showReportComment() {
+    $(".ReportCommentField").hide();
+    $(this).siblings(".ReportCommentField").show();
 }
