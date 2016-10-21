@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMattersSite", "MusicMattersSite\MusicMattersSite.csproj", "{DC29281F-1B79-4B4D-948A-4BA54BE13A78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMattersAdmin", "MusicMattersAdmin\MusicMattersAdmin.csproj", "{963ADB4A-0646-41C2-80B8-F7F0A69E3590}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DC29281F-1B79-4B4D-948A-4BA54BE13A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC29281F-1B79-4B4D-948A-4BA54BE13A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC29281F-1B79-4B4D-948A-4BA54BE13A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{963ADB4A-0646-41C2-80B8-F7F0A69E3590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{963ADB4A-0646-41C2-80B8-F7F0A69E3590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{963ADB4A-0646-41C2-80B8-F7F0A69E3590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{963ADB4A-0646-41C2-80B8-F7F0A69E3590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
