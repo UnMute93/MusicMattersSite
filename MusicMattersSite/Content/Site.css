@@ -22,3 +22,116 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* PROFILE */
+
+#ProfileContainer {
+    display:flex;
+    height: 500px;
+}
+
+#UserInfo {
+    flex: 1;
+}
+
+#ProfileContent {
+    display: flex;
+    flex-direction: column;
+    flex: 5;
+}
+
+#Bio {
+    flex: 1;
+}
+
+#ArtistList {
+    flex: 1;
+}
+
+/*ARTIST DETAILS*/
+
+#AlbumsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.Album {
+    padding: 1.25em;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    flex-basis: 10%;
+}
+
+.Album > strong {
+    text-align: center;
+    padding-bottom: .625em;
+}
+.AlbumCover {
+    object-fit: contain;
+}
+
+.SongList {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.Song {
+    display: flex;
+    flex: auto;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.Order {
+    padding: .25em;
+    flex: 1;
+    box-sizing: border-box;
+    flex-basis: 5%;
+    text-align: right;
+}
+
+.Name {
+    padding: .25em;
+    flex: 5;
+    box-sizing: border-box;
+    flex-basis: 70%;
+    text-align: left;
+}
+
+.Length {
+    padding: .25em;
+    flex: 1;
+    box-sizing: border-box;
+    flex-basis: 15%;
+    text-align: right;
+}
+
+#ArtistContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#ArtistImage {
+    object-fit: contain;
+    max-width: 50em;
+    flex: 1;
+}
+
+#ArtistTitle {
+    flex: 1;
+    margin-bottom: .625em;
+}
+
+#ArtistDescription {
+    flex: 1;
+    margin-top: 2.5em;
+    width: 50em;
+}

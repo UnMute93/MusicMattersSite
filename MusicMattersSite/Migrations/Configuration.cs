@@ -57,6 +57,47 @@ namespace MusicMattersSite.Migrations
                 new Artist { ArtistID = 4, Name = "Radiohead", Image = "~/Images/Artists/Radiohead/radiohead.jpg", Description = "Radiohead are an English rock band from Abingdon, Oxfordshire, formed in 1985. The band consists of Thom Yorke (lead vocals, guitar, piano, keyboards), Jonny Greenwood (lead guitar, keyboards, other instruments), Ed O'Brien (guitar, backing vocals), Colin Greenwood (bass), and Phil Selway (drums, percussion, backing vocals). They have worked with producer Nigel Godrich and cover artist Stanley Donwood since 1994.", IsAdminApproved = 1, ActiveFrom = new DateTime(1985, 1, 1) }
             );
 
+            context.Album.AddOrUpdate(
+                new Album { AlbumID = 1, ArtistID = 4, Name = "OK Computer", Image = "~/Images/Artists/Radiohead/ok_computer_cover.jpg", ReleaseDate = new DateTime(1997, 1, 1), IsAdminApproved = 1 },
+                new Album { AlbumID = 2, ArtistID = 4, Name = "Kid A", Image = "~/Images/Artists/Radiohead/kid_a_cover.jpg", ReleaseDate = new DateTime(2000, 1, 1), IsAdminApproved = 1 },
+                new Album { AlbumID = 3, ArtistID = 4, Name = "In Rainbows", Image = "~/Images/Artists/Radiohead/in_rainbows_cover.jpg", ReleaseDate = new DateTime(2007, 1, 1), IsAdminApproved = 1 }
+            );
+
+            context.Song.AddOrUpdate(
+                new Song { SongID = 1, AlbumID = 1, Name = "Airbag", Order = 1, Length = new TimeSpan(0, 4, 44), IsAdminApproved = 1 },
+                new Song { SongID = 2, AlbumID = 1, Name = "Paranoid Android", Order = 2, Length = new TimeSpan(0, 6, 23), IsAdminApproved = 1 },
+                new Song { SongID = 3, AlbumID = 1, Name = "Subterranean Homesick Alien", Order = 3, Length = new TimeSpan(0, 4, 27), IsAdminApproved = 1 },
+                new Song { SongID = 4, AlbumID = 1, Name = "Exit Music (For a Film)", Order = 4, Length = new TimeSpan(0, 4, 24), IsAdminApproved = 1 },
+                new Song { SongID = 5, AlbumID = 1, Name = "Let Down", Order = 5, Length = new TimeSpan(0, 4, 59), IsAdminApproved = 1 },
+                new Song { SongID = 6, AlbumID = 1, Name = "Karma Police", Order = 6, Length = new TimeSpan(0, 4, 21), IsAdminApproved = 1 },
+                new Song { SongID = 7, AlbumID = 1, Name = "Fitter Happier", Order = 7, Length = new TimeSpan(0, 1, 57), IsAdminApproved = 1 },
+                new Song { SongID = 8, AlbumID = 1, Name = "Electioneering", Order = 8, Length = new TimeSpan(0, 3, 50), IsAdminApproved = 1 },
+                new Song { SongID = 9, AlbumID = 1, Name = "Climbing Up the Walls", Order = 9, Length = new TimeSpan(0, 4, 45), IsAdminApproved = 1 },
+                new Song { SongID = 10, AlbumID = 1, Name = "No Surprises", Order = 10, Length = new TimeSpan(0, 3, 48), IsAdminApproved = 1 },
+                new Song { SongID = 11, AlbumID = 1, Name = "Lucky", Order = 11, Length = new TimeSpan(0, 4, 19), IsAdminApproved = 1 },
+                new Song { SongID = 12, AlbumID = 1, Name = "The Tourist", Order = 12, Length = new TimeSpan(0, 5, 24), IsAdminApproved = 1 },
+                new Song { SongID = 13, AlbumID = 2, Name = "Everything in Its Right Place", Order = 1, Length = new TimeSpan(0, 4, 11), IsAdminApproved = 1 },
+                new Song { SongID = 14, AlbumID = 2, Name = "Kid A", Order = 2, Length = new TimeSpan(0, 4, 44), IsAdminApproved = 1 },
+                new Song { SongID = 15, AlbumID = 2, Name = "The National Anthem", Order = 3, Length = new TimeSpan(0, 5, 51), IsAdminApproved = 1 },
+                new Song { SongID = 16, AlbumID = 2, Name = "How to Disappear Completely", Order = 4, Length = new TimeSpan(0, 5, 56), IsAdminApproved = 1 },
+                new Song { SongID = 17, AlbumID = 2, Name = "Treefingers", Order = 5, Length = new TimeSpan(0, 3, 42), IsAdminApproved = 1 },
+                new Song { SongID = 18, AlbumID = 2, Name = "Optimistic", Order = 6, Length = new TimeSpan(0, 5, 15), IsAdminApproved = 1 },
+                new Song { SongID = 19, AlbumID = 2, Name = "In Limbo", Order = 7, Length = new TimeSpan(0, 3, 31), IsAdminApproved = 1 },
+                new Song { SongID = 20, AlbumID = 2, Name = "Idioteque", Order = 8, Length = new TimeSpan(0, 5, 9), IsAdminApproved = 1 },
+                new Song { SongID = 21, AlbumID = 2, Name = "Morning Bell", Order = 9, Length = new TimeSpan(0, 4, 35), IsAdminApproved = 1 },
+                new Song { SongID = 22, AlbumID = 2, Name = "Motion Picture Soundtrack", Order = 10, Length = new TimeSpan(0, 7, 01), IsAdminApproved = 1 },
+                new Song { SongID = 23, AlbumID = 3, Name = "15 Step", Order = 1, Length = new TimeSpan(0, 3, 58), IsAdminApproved = 1 },
+                new Song { SongID = 24, AlbumID = 3, Name = "Bodysnatchers", Order = 2, Length = new TimeSpan(0, 4, 2), IsAdminApproved = 1 },
+                new Song { SongID = 25, AlbumID = 3, Name = "Nude", Order = 3, Length = new TimeSpan(0, 4, 15), IsAdminApproved = 1 },
+                new Song { SongID = 26, AlbumID = 3, Name = "Weird Fishes/Arpeggi", Order = 4, Length = new TimeSpan(0, 5, 18), IsAdminApproved = 1 },
+                new Song { SongID = 27, AlbumID = 3, Name = "All I Need", Order = 5, Length = new TimeSpan(0, 3, 49), IsAdminApproved = 1 },
+                new Song { SongID = 28, AlbumID = 3, Name = "Faust Arp", Order = 6, Length = new TimeSpan(0, 2, 10), IsAdminApproved = 1 },
+                new Song { SongID = 29, AlbumID = 3, Name = "Reckoner", Order = 7, Length = new TimeSpan(0, 4, 50), IsAdminApproved = 1 },
+                new Song { SongID = 30, AlbumID = 3, Name = "House of Cards", Order = 8, Length = new TimeSpan(0, 5, 28), IsAdminApproved = 1 },
+                new Song { SongID = 31, AlbumID = 3, Name = "Jigsaw Falling into Place", Order = 9, Length = new TimeSpan(0, 4, 9), IsAdminApproved = 1 },
+                new Song { SongID = 32, AlbumID = 3, Name = "Videotape", Order = 10, Length = new TimeSpan(0, 4, 40), IsAdminApproved = 1 }
+            );
+
             context.UserArtist.AddOrUpdate(
                 new UserArtist { UserID = "2e8b2696-e229-4dad-a9de-c0fe56359361", ArtistID = 4, IsRanked = true, Ranking = 1 }
             );

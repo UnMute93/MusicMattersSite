@@ -72,6 +72,7 @@ namespace MusicMattersSite.Controllers
                         pc.Content = item.item.Content;
                         pc.TimeCreated = item.item.TimeCreated;
                         pc.TimeEdited = item.item.TimeEdited;
+                        pc.SortKey = item.item.SortKey;
                         commentList.Add(pc);
                     }
 
@@ -82,12 +83,13 @@ namespace MusicMattersSite.Controllers
                                         on ranking.UserID equals u.Id
                                         where u.Id == user.Id
                                         orderby ranking.IsRanked descending, ranking.Ranking ascending
-                                        select new { item.Name, ranking.Ranking };
+                                        select new { item.ArtistID, item.Name, ranking.Ranking };
                     List<ArtistRanking> artistList = new List<ArtistRanking>();
                     foreach (var item in artistsResult)
                     {
                         ArtistRanking ar = new ArtistRanking();
-                        ar.Artist = item.Name;
+                        ar.ArtistID = item.ArtistID;
+                        ar.ArtistName = item.Name;
                         ar.Ranking = item.Ranking ?? 0;
                         artistList.Add(ar);
                     }
@@ -228,20 +230,50 @@ namespace MusicMattersSite.Controllers
             db.CommentHistory.Add(history);
             db.SaveChanges();
         }
-            /*public ActionResult ArtistDetails(string artistName)
-            {
-                using (var db = new ApplicationDbContext())
-                {
-                    var artistResult = from artist in db.Artist
-                                       join album in db.Album on artist.ArtistID equals album.ArtistID
-                                       join song in db.Song on album.AlbumID equals song.AlbumID
-                                       where artist.Name == artistName && artist.IsAdminApproved == 1 && album.IsAdminApproved == 1 && song.IsAdminApproved == 1
-                                       select new { artist, album, song };
-                    List<Album> albumList = artistResult.ToList()
-                    ArtistDetailViewModel model = new ArtistDetailViewModel();
-                    model.Albums = artistResult
 
-                }
+        public ActionResult ArtistDetails(int artistID)
+        {
+            /*var artistResult = from ar in db.Artist
+                               join al in db.Album on ar.ArtistID equals al.ArtistID
+                               join s in db.Song on al.AlbumID equals s.AlbumID
+                               where ar.Name == artistName && ar.IsAdminApproved == 1 && al.IsAdminApproved == 1 && s.IsAdminApproved == 1
+                               select new { ar, al, s };*/
+
+            var artistResult = (from ar in db.Artist
+                               where ar.ArtistID == artistID
+                               select ar).FirstOrDefault();
+            var albumResult = from al in db.Album
+                              join ar in db.Artist on al.ArtistID equals ar.ArtistID
+                              where al.ArtistID == artistID
+                              select al;
+            /*var songResult = from s in db.Song
+                             join al in db.Album on s.AlbumID equals al.AlbumID
+                             join ar in db.Artist on al.ArtistID equals ar.ArtistID
+                             where ar.ArtistID == artistID
+                             select s;*/
+
+            List<Album> albumList = new List<Album>();
+            //List<Song> songList = new List<Song>();
+            foreach (var item in albumResult)
+            {
+                albumList.Add(item);
+            }
+            /*foreach (var item in songResult)
+            {
+                albumList.Add(item.al);
             }*/
+            Artist artist = artistResult;
+
+            ArtistDetailViewModel model = new ArtistDetailViewModel();
+            model.Albums = albumList;
+            //model.Songs = songList;
+            model.Name = artist.Name;
+            model.Description = artist.Description;
+            model.Image = artist.Image;
+            model.ActiveFrom = artist.ActiveFrom;
+            model.ActiveUntil = artist.ActiveUntil;
+
+            return View(model);
         }
+    }
 }

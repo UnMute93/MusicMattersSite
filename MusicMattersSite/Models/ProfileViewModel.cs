@@ -24,7 +24,8 @@ namespace MusicMattersSite.Models
 
     public class ArtistRanking
     {
-        public string Artist;
+        public int ArtistID;
+        public string ArtistName;
         public int Ranking;
     }
 
@@ -35,6 +36,7 @@ namespace MusicMattersSite.Models
         public string AuthorName { get; set; }
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
+        public string SortKey { get; set; }
         public int ParentID { get; set; }
         public DateTime TimeCreated { get; set; }
         public Nullable<DateTime> TimeEdited { get; set; }

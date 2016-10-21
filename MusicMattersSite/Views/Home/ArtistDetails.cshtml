@@ -1,0 +1,36 @@
+﻿@model MusicMattersSite.Models.ArtistDetailViewModel
+
+@{
+    ViewBag.Title = "ArtistDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="ArtistContainer">
+    @{
+        string artistActivity = "";
+        if (Model.ActiveFrom != null && Model.ActiveUntil == null) { artistActivity = " (" + Model.ActiveFrom.Value.Year + " - Present)"; }
+        else if (Model.ActiveFrom == null && Model.ActiveUntil != null) { artistActivity = " (Unknown - " + Model.ActiveUntil.Value.Year + ")"; }
+        else if (Model.ActiveFrom != null && Model.ActiveUntil != null) { artistActivity = " (" + Model.ActiveFrom.Value.Year + " - " + Model.ActiveUntil.Value.Year + ")"; }
+        <h1 id="ArtistTitle">@Html.Raw(Model.Name + artistActivity)</h1>
+    }
+    <img src="@Url.Content(Model.Image)" id="ArtistImage" />
+    <p id="ArtistDescription">@Model.Description</p>
+</div>
+
+<div id="AlbumsContainer">
+    @foreach (var a in Model.Albums)
+    {
+        <div class="Album">
+            <img src="@Url.Content(a.Image)" class="AlbumCover" /><br />
+            <strong>@Html.Raw(a.Name + " (" + a.ReleaseDate.Value.Year + ")")</strong>
+            <div class="SongList">
+                @foreach (var s in a.Song)
+                {
+                    <div class="Song">
+                        <div class="Order">@Html.Raw(s.Order + ".")</div><div class="Name">@s.Name</div><div class="Length">@s.Length.Value.ToString("mm\\:ss")</div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

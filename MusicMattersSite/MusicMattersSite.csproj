@@ -206,6 +206,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Artists\Radiohead\kid_a_cover.jpg" />
+    <Content Include="Images\Artists\Radiohead\ok_computer_cover.jpg" />
     <Content Include="Images\Artists\Radiohead\radiohead.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -247,6 +249,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Profiles.cshtml" />
+    <Content Include="Views\Home\ArtistDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

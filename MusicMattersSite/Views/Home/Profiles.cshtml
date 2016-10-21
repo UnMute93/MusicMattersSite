@@ -7,30 +7,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="UserInfo">
-    @Model.UserName<br />
-    @if (Model.ShowEmail == 1)
-    {
-        @Model.Email
-    }
-</div>
-
-<div id="ProfileContent">
-    <div id="Bio">
-        @Model.Bio
+<div id="ProfileContainer">
+    <div id="UserInfo">
+        @Model.UserName<br />
+        @if (Model.ShowEmail == 1)
+        {
+            @Model.Email
+        }
     </div>
 
-    <div id="ArtistList">
-        <h2>Artists this user likes:</h2>
-        @foreach (var item in Model.Artists)
-        {
-            if (item.Ranking != 0)
+    <div id="ProfileContent">
+        <div id="Bio">
+            @Model.Bio
+        </div>
+
+        <div id="ArtistList">
+            <h3>My favorite artists are:</h3>
+            @foreach (var item in Model.Artists)
             {
-                @Html.Raw(item.Ranking + ". ")
+                if (item.Ranking != 0)
+                {
+                    @Html.Raw(item.Ranking + ". ")
+                }
+                @Html.ActionLink(item.ArtistName, "ArtistDetails", new { artistID = item.ArtistID })
+                <br />
             }
-            @Html.ActionLink(item.Artist, "ArtistDetails", new { artistName = item.Artist })
-            <br />
-        }
+        </div>
     </div>
 </div>
 
@@ -50,7 +52,7 @@
 <div>
     @for (int i=0; i < Model.Comments.Count(); i++)
     {
-        <div class="Comment">
+        <div class="Comment" data-value="@Model.Comments[i].SortKey">
             <div class="ReportCommentField" style="display:none">
                 @using (Html.BeginForm("ReportComment", "Home", new { CommentIndex = i }, FormMethod.Post))
                 {

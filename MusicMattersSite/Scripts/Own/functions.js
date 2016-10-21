@@ -2,6 +2,7 @@
     $(".EditCommentButton").click(showEditComment);
     $(".ReplyCommentButton").click(showReplyComment);
     $(".ReportCommentButton").click(showReportComment);
+    $(".Comment").each(addIndent);
 });
 
 function showEditComment() {
@@ -19,4 +20,12 @@ function showReplyComment() {
 function showReportComment() {
     $(".ReportCommentField").hide();
     $(this).siblings(".ReportCommentField").show();
+}
+
+function addIndent() {
+    var exp = new RegExp(/\./g);
+    var dotCount = $(this).data("value").match(exp).length;
+    if (dotCount > 0) {
+    $(this).css({ "margin-left": dotCount * 40 + "px" });
+    }
 }
