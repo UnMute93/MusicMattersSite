@@ -162,23 +162,17 @@ namespace MusicMattersSite.Controllers
         }
         [HttpPost]
         [Authorize]
-        public ActionResult EditProfileSettings(EditProfileSettingsViewModel model)
+        public ActionResult EditProfileSettings(EditProfileSettingsViewModel model, int ShowEmail)
         {
             if (ModelState.IsValid)
             {
-                var profileResult = (from item in db.UserProfile
+                var profileResult = from item in db.UserProfile
                                     where item.UserID == model.UserID
-                                    select item).FirstOrDefault();
+                                    select item;
 
-                profileResult.Bio = model.Bio;
-                profileResult.ShowEmail = model.ShowEmail;
-
-                //var
-
+                profileResult.FirstOrDefault().Bio = model.Bio;
 
                 db.SaveChanges();
-
-
             }
             return Redirect("/");
         }
@@ -187,12 +181,6 @@ namespace MusicMattersSite.Controllers
         [Authorize]
         public ActionResult ReportComment(ProfileViewModel model, int CommentIndex)
         {
-            //string flagName = model.Flag.Name;
-            /*var flagResult = from item in db.Flag
-                             where item.Name == flagName
-                             select item.FlagID;*/
-
-
             Flaggable flaggable = new Flaggable();
             flaggable.FlagID = model.Flag.FlagID;
             flaggable.FlaggableType = "Comment";
@@ -285,7 +273,7 @@ namespace MusicMattersSite.Controllers
         {
             CommentHistory history = new CommentHistory();
             history.Action = action;
-            history.CommentId = comment.CommentID;
+            history.CommentID = comment.CommentID;
             history.Content = comment.Content;
             history.Time = comment.TimeEdited ?? comment.TimeCreated;
 
@@ -295,13 +283,7 @@ namespace MusicMattersSite.Controllers
 
         public ActionResult ArtistDetails(int artistID)
         {
-                /*var artistResult = from ar in db.Artist
-                                   join al in db.Album on ar.ArtistID equals al.ArtistID
-                                   join s in db.Song on al.AlbumID equals s.AlbumID
-                                   where ar.Name == artistName && ar.IsAdminApproved == 1 && al.IsAdminApproved == 1 && s.IsAdminApproved == 1
-                                   select new { ar, al, s };*/
-
-                var artistResult = (from ar in db.Artist
+            var artistResult = (from ar in db.Artist
                                    where ar.ArtistID == artistID
                                    select ar).FirstOrDefault();
 

@@ -48,6 +48,7 @@
             // 
             // ContentButton
             // 
+            this.ContentButton.Enabled = false;
             this.ContentButton.Location = new System.Drawing.Point(23, 61);
             this.ContentButton.Name = "ContentButton";
             this.ContentButton.Size = new System.Drawing.Size(146, 23);

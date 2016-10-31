@@ -32,12 +32,17 @@ textarea {
 
 #UserInfo {
     flex: 1;
+    padding: 1.25em;
+    margin-bottom: 1.25em;
+    margin-right: 1.25em;
+    background-color: #e7e7e7;
 }
 
 #ProfileContent {
     display: flex;
     flex-direction: column;
     flex: 5;
+    padding: 1.25em;
 }
 
 #Bio {
@@ -46,6 +51,25 @@ textarea {
 
 #ArtistList {
     flex: 1;
+}
+
+input[type="submit"], button {
+    background-color: #e7e7e7;
+    border: none;
+    padding: .625em, .312em;
+}
+
+textarea {
+    border-radius: .625em;
+}
+
+.Comment {
+    margin-bottom: .625em;
+}
+
+#CommentField > form > textarea {
+    width: 50em;
+    height: 8em;
 }
 
 /*ARTIST DETAILS*/

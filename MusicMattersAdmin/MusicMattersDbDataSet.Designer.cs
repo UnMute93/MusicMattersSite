@@ -3457,7 +3457,7 @@ namespace MusicMattersAdmin {
             
             private global::System.Data.DataColumn columnID;
             
-            private global::System.Data.DataColumn columnCommentId;
+            private global::System.Data.DataColumn columnCommentID;
             
             private global::System.Data.DataColumn columnContent;
             
@@ -3508,9 +3508,9 @@ namespace MusicMattersAdmin {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CommentIdColumn {
+            public global::System.Data.DataColumn CommentIDColumn {
                 get {
-                    return this.columnCommentId;
+                    return this.columnCommentID;
                 }
             }
             
@@ -3575,11 +3575,11 @@ namespace MusicMattersAdmin {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CommentHistoriesRow AddCommentHistoriesRow(int CommentId, string Content, string Action, System.DateTime Time) {
+            public CommentHistoriesRow AddCommentHistoriesRow(int CommentID, string Content, string Action, System.DateTime Time) {
                 CommentHistoriesRow rowCommentHistoriesRow = ((CommentHistoriesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        CommentId,
+                        CommentID,
                         Content,
                         Action,
                         Time};
@@ -3613,7 +3613,7 @@ namespace MusicMattersAdmin {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
-                this.columnCommentId = base.Columns["CommentId"];
+                this.columnCommentID = base.Columns["CommentID"];
                 this.columnContent = base.Columns["Content"];
                 this.columnAction = base.Columns["Action"];
                 this.columnTime = base.Columns["Time"];
@@ -3624,8 +3624,8 @@ namespace MusicMattersAdmin {
             private void InitClass() {
                 this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
-                this.columnCommentId = new global::System.Data.DataColumn("CommentId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCommentId);
+                this.columnCommentID = new global::System.Data.DataColumn("CommentID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCommentID);
                 this.columnContent = new global::System.Data.DataColumn("Content", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnContent);
                 this.columnAction = new global::System.Data.DataColumn("Action", typeof(string), null, global::System.Data.MappingType.Element);
@@ -3640,7 +3640,7 @@ namespace MusicMattersAdmin {
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
-                this.columnCommentId.AllowDBNull = false;
+                this.columnCommentID.AllowDBNull = false;
                 this.columnContent.AllowDBNull = false;
                 this.columnContent.MaxLength = 2147483647;
                 this.columnAction.AllowDBNull = false;
@@ -6733,12 +6733,12 @@ namespace MusicMattersAdmin {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int CommentId {
+            public int CommentID {
                 get {
-                    return ((int)(this[this.tableCommentHistories.CommentIdColumn]));
+                    return ((int)(this[this.tableCommentHistories.CommentIDColumn]));
                 }
                 set {
-                    this[this.tableCommentHistories.CommentIdColumn] = value;
+                    this[this.tableCommentHistories.CommentIDColumn] = value;
                 }
             }
             
@@ -11198,7 +11198,7 @@ SELECT Id, Email, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, Phon
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "CommentHistories";
             tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("CommentId", "CommentId");
+            tableMapping.ColumnMappings.Add("CommentId", "CommentID");
             tableMapping.ColumnMappings.Add("Content", "Content");
             tableMapping.ColumnMappings.Add("Action", "Action");
             tableMapping.ColumnMappings.Add("Time", "Time");

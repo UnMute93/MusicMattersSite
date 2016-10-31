@@ -9,7 +9,7 @@ namespace MusicMattersSite.Models
     public class CommentHistory
     {
         public int ID { get; set; }
-        public int CommentId { get; set; }
+        public int CommentID { get; set; }
         [Required]
         public string Content { get; set; }
         [Required]
