@@ -206,6 +206,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Artists\Caravan Palace\panic_cover.jpg" />
+    <Content Include="Images\Artists\Caravan Palace\robot_cover.jpg" />
     <Content Include="Images\Artists\Radiohead\kid_a_cover.jpg" />
     <Content Include="Images\Artists\Radiohead\ok_computer_cover.jpg" />
     <Content Include="Images\Artists\Radiohead\radiohead.jpg" />
@@ -258,9 +260,7 @@
       <DependentUpon>201610191244113_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\Artists\Caravan Palace\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
