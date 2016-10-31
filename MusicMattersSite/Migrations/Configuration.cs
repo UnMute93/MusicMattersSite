@@ -45,22 +45,25 @@ namespace MusicMattersSite.Migrations
             
 
             context.UserProfile.AddOrUpdate(
-                new UserProfile { UserID = "2e8b2696-e229-4dad-a9de-c0fe56359361", Bio = "This is some profile text.", ShowEmail = 1, BackgroundColor = "#FFFFFF" }
+                new UserProfile { UserID = "2e8b2696-e229-4dad-a9de-c0fe56359361", Bio = "This is some profile text.", ShowEmail = 1 },
+                new UserProfile { UserID = "176ce051-1214-4fc6-a5e6-a57591a4b262", Bio = "Hi, I'm a troll.", ShowEmail = 0 }
             );
 
             context.Comment.AddOrUpdate(
-                new Comment { CommentID = 2, UserRecipientID = "2e8b2696-e229-4dad-a9de-c0fe56359361", UserAuthorID = "2e8b2696-e229-4dad-a9de-c0fe56359361", TimeCreated = new DateTime(2016, 10, 17, 14, 20, 0), Content = "This is a comment from myself to myself" },
-                new Comment { CommentID = 1, UserRecipientID = "2e8b2696-e229-4dad-a9de-c0fe56359361", UserAuthorID = "176ce051-1214-4fc6-a5e6-a57591a4b262", TimeCreated = new DateTime(2016, 10, 17, 16, 18, 0), Content = "*Offensive stuff*" }
+                new Comment { CommentID = 2, UserRecipientID = "2e8b2696-e229-4dad-a9de-c0fe56359361", UserAuthorID = "2e8b2696-e229-4dad-a9de-c0fe56359361", TimeCreated = new DateTime(2016, 10, 17, 14, 20, 0), Content = "This is a comment from myself to myself", SortKey = "0002" },
+                new Comment { CommentID = 1, UserRecipientID = "2e8b2696-e229-4dad-a9de-c0fe56359361", UserAuthorID = "176ce051-1214-4fc6-a5e6-a57591a4b262", TimeCreated = new DateTime(2016, 10, 17, 16, 18, 0), Content = "*Offensive stuff*", SortKey = "0001" }
             );
 
             context.Artist.AddOrUpdate(
-                new Artist { ArtistID = 4, Name = "Radiohead", Image = "~/Images/Artists/Radiohead/radiohead.jpg", Description = "Radiohead are an English rock band from Abingdon, Oxfordshire, formed in 1985. The band consists of Thom Yorke (lead vocals, guitar, piano, keyboards), Jonny Greenwood (lead guitar, keyboards, other instruments), Ed O'Brien (guitar, backing vocals), Colin Greenwood (bass), and Phil Selway (drums, percussion, backing vocals). They have worked with producer Nigel Godrich and cover artist Stanley Donwood since 1994.", IsAdminApproved = 1, ActiveFrom = new DateTime(1985, 1, 1) }
+                new Artist { ArtistID = 4, Name = "Radiohead", Image = "~/Images/Artists/Radiohead/radiohead.jpg", Description = "Radiohead are an English rock band from Abingdon, Oxfordshire, formed in 1985. The band consists of Thom Yorke (lead vocals, guitar, piano, keyboards), Jonny Greenwood (lead guitar, keyboards, other instruments), Ed O'Brien (guitar, backing vocals), Colin Greenwood (bass), and Phil Selway (drums, percussion, backing vocals). They have worked with producer Nigel Godrich and cover artist Stanley Donwood since 1994.", IsAdminApproved = 1, ActiveFrom = new DateTime(1985, 1, 1) },
+                new Artist { ArtistID = 12, Name = "Caravan Palace", Image = "~/Images/Artists/Caravan Palace/caravan_palace.jpg", Description = "Caravan Palace is a French electro swing band based in Paris. The band's influences include Django Reinhardt, Vitalic, Lionel Hampton, and Daft Punk. The band released their debut studio album, Caravan Palace, on the Wagram label in October 2008. The record charted in Switzerland, Belgium and France, where it reached a peak position of number 11.", IsAdminApproved = 1, ActiveFrom = new DateTime(2008, 1, 1) }
             );
 
             context.Album.AddOrUpdate(
                 new Album { AlbumID = 1, ArtistID = 4, Name = "OK Computer", Image = "~/Images/Artists/Radiohead/ok_computer_cover.jpg", ReleaseDate = new DateTime(1997, 1, 1), IsAdminApproved = 1 },
                 new Album { AlbumID = 2, ArtistID = 4, Name = "Kid A", Image = "~/Images/Artists/Radiohead/kid_a_cover.jpg", ReleaseDate = new DateTime(2000, 1, 1), IsAdminApproved = 1 },
-                new Album { AlbumID = 3, ArtistID = 4, Name = "In Rainbows", Image = "~/Images/Artists/Radiohead/in_rainbows_cover.jpg", ReleaseDate = new DateTime(2007, 1, 1), IsAdminApproved = 1 }
+                new Album { AlbumID = 3, ArtistID = 4, Name = "In Rainbows", Image = "~/Images/Artists/Radiohead/in_rainbows_cover.jpg", ReleaseDate = new DateTime(2007, 1, 1), IsAdminApproved = 1 },
+                new Album { AlbumID = 4, ArtistID = 12, Name = "Caravan Palace", Image = "~/Images/Artists/Caravan Palace/caravan_palace_cover.jpg", ReleaseDate = new DateTime(2008, 1, 1), IsAdminApproved = 1 }
             );
 
             context.Song.AddOrUpdate(
@@ -95,11 +98,27 @@ namespace MusicMattersSite.Migrations
                 new Song { SongID = 29, AlbumID = 3, Name = "Reckoner", Order = 7, Length = new TimeSpan(0, 4, 50), IsAdminApproved = 1 },
                 new Song { SongID = 30, AlbumID = 3, Name = "House of Cards", Order = 8, Length = new TimeSpan(0, 5, 28), IsAdminApproved = 1 },
                 new Song { SongID = 31, AlbumID = 3, Name = "Jigsaw Falling into Place", Order = 9, Length = new TimeSpan(0, 4, 9), IsAdminApproved = 1 },
-                new Song { SongID = 32, AlbumID = 3, Name = "Videotape", Order = 10, Length = new TimeSpan(0, 4, 40), IsAdminApproved = 1 }
+                new Song { SongID = 32, AlbumID = 3, Name = "Videotape", Order = 10, Length = new TimeSpan(0, 4, 40), IsAdminApproved = 1 },
+                new Song { SongID = 33, AlbumID = 4, Name = "Dragons", Order = 1, Length = new TimeSpan(0, 4, 5), IsAdminApproved = 1},
+                new Song { SongID = 34, AlbumID = 4, Name = "Star Scat", Order = 2, Length = new TimeSpan(0, 3, 50), IsAdminApproved = 1 },
+                new Song { SongID = 35, AlbumID = 4, Name = "Ended With the Night", Order = 3, Length = new TimeSpan(0, 5, 0), IsAdminApproved = 1 },
+                new Song { SongID = 36, AlbumID = 4, Name = "Jolie Coquine", Order = 4, Length = new TimeSpan(0, 3, 46), IsAdminApproved = 1 },
+                new Song { SongID = 37, AlbumID = 4, Name = "Oooh", Order = 5, Length = new TimeSpan(0, 1, 49), IsAdminApproved = 1 },
+                new Song { SongID = 38, AlbumID = 4, Name = "Suzy", Order = 6, Length = new TimeSpan(0, 4, 7), IsAdminApproved = 1 },
+                new Song { SongID = 39, AlbumID = 4, Name = "Je M'Amuse", Order = 7, Length = new TimeSpan(0, 3, 34), IsAdminApproved = 1 },
+                new Song { SongID = 40, AlbumID = 4, Name = "Violente Valse", Order = 8, Length = new TimeSpan(0, 3, 35), IsAdminApproved = 1 },
+                new Song { SongID = 41, AlbumID = 4, Name = "Brotherswing", Order = 9, Length = new TimeSpan(0, 3, 42), IsAdminApproved = 1 },
+                new Song { SongID = 42, AlbumID = 4, Name = "L'Envol", Order = 10, Length = new TimeSpan(0, 3, 46), IsAdminApproved = 1 },
+                new Song { SongID = 43, AlbumID = 4, Name = "Sofa", Order = 11, Length = new TimeSpan(0, 0, 51), IsAdminApproved = 1 },
+                new Song { SongID = 44, AlbumID = 4, Name = "Bambous", Order = 12, Length = new TimeSpan(0, 3, 14), IsAdminApproved = 1 },
+                new Song { SongID = 45, AlbumID = 4, Name = "Lazy Place", Order = 13, Length = new TimeSpan(0, 3, 57), IsAdminApproved = 1 },
+                new Song { SongID = 46, AlbumID = 4, Name = "We Can Dance", Order = 14, Length = new TimeSpan(0, 4, 23), IsAdminApproved = 1 },
+                new Song { SongID = 47, AlbumID = 4, Name = "La Caravane", Order = 15, Length = new TimeSpan(0, 5, 5), IsAdminApproved = 1 }
             );
 
             context.UserArtist.AddOrUpdate(
-                new UserArtist { UserID = "2e8b2696-e229-4dad-a9de-c0fe56359361", ArtistID = 4, IsRanked = true, Ranking = 1 }
+                new UserArtist { UserID = "2e8b2696-e229-4dad-a9de-c0fe56359361", ArtistID = 4, IsRanked = true, Ranking = 1 },
+                new UserArtist { UserID = "2e8b2696-e229-4dad-a9de-c0fe56359361", ArtistID = 12, IsRanked = true, Ranking = 2 }
             );
 
             context.Flag.AddOrUpdate(

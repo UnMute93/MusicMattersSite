@@ -220,7 +220,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\Own\functions.js" />
+    <Content Include="Scripts\Own\editProfileFunctions.js" />
+    <Content Include="Scripts\Own\profileFunctions.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -250,6 +251,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Profiles.cshtml" />
     <Content Include="Views\Home\ArtistDetails.cshtml" />
+    <Content Include="Views\Home\EditProfileSettings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -263,6 +265,9 @@
     <EmbeddedResource Include="Migrations\201610191244113_Initial.resx">
       <DependentUpon>201610191244113_Initial.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Artists\Caravan Palace\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

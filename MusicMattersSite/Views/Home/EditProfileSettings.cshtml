@@ -1,0 +1,43 @@
+﻿@model MusicMattersSite.Models.EditProfileSettingsViewModel
+
+@{
+    ViewBag.Title = "EditProfileSettings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile Settings</h2>
+
+<div id="SettingsContainer">
+    @using (Html.BeginForm("EditProfileSettings", "Home", FormMethod.Post))
+    {
+        <p>
+            @Html.LabelFor(m => m.Bio)
+            @Html.EditorFor(m => m.Bio)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.ShowEmail)
+            @if (Model.ShowEmail == 1)
+            {
+                @Html.CheckBox("ShowEmail", true)
+            }
+            else
+            {
+                @Html.CheckBox("ShowEmail", false)
+            }
+
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Artists)<br />
+            <table id="ArtistTable">
+            @for (int i = 0; i < Model.Artists.Count(); i++)
+            {
+                <tr>
+                    <td>@Html.EditorFor(m => m.Artists[i].Ranking)</td>
+                    <td>@Html.EditorFor(m => m.Artists[i].ArtistName)</td>
+                </tr>
+            }
+            </table>
+</p>
+    }
+</div>
+

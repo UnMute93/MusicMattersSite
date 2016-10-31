@@ -55,14 +55,16 @@ textarea {
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
+    width: 100%;
 }
 
 .Album {
     padding: 1.25em;
     display: flex;
     flex-direction: column;
-    flex: 1;
-    flex-basis: 10%;
+    flex: auto;
+    justify-content: space-around;
+    flex-basis: 30%;
 }
 
 .Album > strong {
@@ -71,45 +73,48 @@ textarea {
 }
 .AlbumCover {
     object-fit: contain;
+    max-width: 18.75em;
+    border-radius: 50%;
+    border-width: .0625em;
+    border-style: solid;
+    align-self: center;
+    box-shadow: .312em .312em .156em;
 }
 
 .SongList {
     display: flex;
     flex: auto;
     flex-direction: column;
-    flex-wrap: wrap;
+    align-self: center;
+    justify-content: space-around;
 }
 
 .Song {
     display: flex;
     flex: auto;
-    flex-wrap: nowrap;
     flex-direction: row;
     justify-content: space-between;
-    align-content: center;
+}
+
+.Song:nth-child(odd) {
+    background-color: #EEE;
 }
 
 .Order {
     padding: .25em;
     flex: 1;
-    box-sizing: border-box;
-    flex-basis: 5%;
     text-align: right;
 }
 
 .Name {
     padding: .25em;
-    flex: 5;
-    box-sizing: border-box;
-    flex-basis: 70%;
+    flex: 8;
     text-align: left;
 }
 
 .Length {
     padding: .25em;
-    flex: 1;
-    box-sizing: border-box;
-    flex-basis: 15%;
+    flex: 2;
     text-align: right;
 }
 
@@ -117,12 +122,13 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 #ArtistImage {
-    object-fit: contain;
+    width: 100%;
     max-width: 50em;
-    flex: 1;
+    flex: 1 1;
 }
 
 #ArtistTitle {
@@ -133,5 +139,6 @@ textarea {
 #ArtistDescription {
     flex: 1;
     margin-top: 2.5em;
-    width: 50em;
+    width: 100%;
+    max-width: 50em;
 }

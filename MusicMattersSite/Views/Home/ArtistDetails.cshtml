@@ -24,7 +24,7 @@
             <img src="@Url.Content(a.Image)" class="AlbumCover" /><br />
             <strong>@Html.Raw(a.Name + " (" + a.ReleaseDate.Value.Year + ")")</strong>
             <div class="SongList">
-                @foreach (var s in a.Song)
+                @foreach (var s in a.Song.OrderBy(song => song.Order))
                 {
                     <div class="Song">
                         <div class="Order">@Html.Raw(s.Order + ".")</div><div class="Name">@s.Name</div><div class="Length">@s.Length.Value.ToString("mm\\:ss")</div>

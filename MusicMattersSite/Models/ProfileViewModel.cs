@@ -12,7 +12,6 @@ namespace MusicMattersSite.Models
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Bio { get; set; }
-        public string BackgroundColor { get; set; }
         public byte ShowEmail { get; set; }
         public List<ArtistRanking> Artists { get; set; }
         public List<ProfileComment> Comments { get; set; }
@@ -40,5 +39,17 @@ namespace MusicMattersSite.Models
         public int ParentID { get; set; }
         public DateTime TimeCreated { get; set; }
         public Nullable<DateTime> TimeEdited { get; set; }
+    }
+
+    public class EditProfileSettingsViewModel
+    {
+        public string UserID { get; set; }
+        [Display(Name = "Profile text")]
+        [DataType(DataType.MultilineText)]
+        public string Bio { get; set; }
+        [Display(Name = "Show your email address to other users")]
+        public byte ShowEmail { get; set; }
+        [Display(Name = "Artists you like")]
+        public List<ArtistRanking> Artists { get; set; }
     }
 }

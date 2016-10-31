@@ -110,13 +110,75 @@ namespace MusicMattersSite.Controllers
                     model.Email = user.Email;
                     model.Bio = profile.Bio;
                     model.ShowEmail = profile.ShowEmail;
-                    model.BackgroundColor = profile.BackgroundColor;
                     model.Comments = commentList;
                     model.Artists = artistList;
                     model.Flags = flagList;
                     
                     return View(model);
                 }
+            }
+            return Redirect("/");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult EditProfileSettings(string userID)
+        {
+            if (User.Identity.GetUserId() == userID)
+            {
+                EditProfileSettingsViewModel model = new EditProfileSettingsViewModel();
+
+                var profileResult = (from item in db.UserProfile
+                                     where item.UserID == userID
+                                     select item).FirstOrDefault();
+
+                model.Bio = profileResult.Bio;
+                model.ShowEmail = profileResult.ShowEmail;
+
+                model.Artists = new List<ArtistRanking>();
+
+                var artistResult = from a in db.Artist
+                                   join ua in db.UserArtist
+                                   on a.ArtistID equals ua.ArtistID
+                                   join u in db.AppUser
+                                   on ua.UserID equals u.Id
+                                   where u.Id == userID
+                                   orderby ua.IsRanked descending, ua.Ranking ascending, a.Name descending
+                                   select new { a.ArtistID, a.Name, ua.Ranking };
+
+                foreach (var item in artistResult)
+                {
+                    ArtistRanking ar = new ArtistRanking();
+                    ar.ArtistID = item.ArtistID;
+                    ar.ArtistName = item.Name;
+                    ar.Ranking = item.Ranking ?? 0;
+
+                    model.Artists.Add(ar);
+                }
+
+                return View(model);
+            }
+            return Redirect("/");
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult EditProfileSettings(EditProfileSettingsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var profileResult = (from item in db.UserProfile
+                                    where item.UserID == model.UserID
+                                    select item).FirstOrDefault();
+
+                profileResult.Bio = model.Bio;
+                profileResult.ShowEmail = model.ShowEmail;
+
+                //var
+
+
+                db.SaveChanges();
+
+
             }
             return Redirect("/");
         }
@@ -233,47 +295,43 @@ namespace MusicMattersSite.Controllers
 
         public ActionResult ArtistDetails(int artistID)
         {
-            /*var artistResult = from ar in db.Artist
-                               join al in db.Album on ar.ArtistID equals al.ArtistID
-                               join s in db.Song on al.AlbumID equals s.AlbumID
-                               where ar.Name == artistName && ar.IsAdminApproved == 1 && al.IsAdminApproved == 1 && s.IsAdminApproved == 1
-                               select new { ar, al, s };*/
+                /*var artistResult = from ar in db.Artist
+                                   join al in db.Album on ar.ArtistID equals al.ArtistID
+                                   join s in db.Song on al.AlbumID equals s.AlbumID
+                                   where ar.Name == artistName && ar.IsAdminApproved == 1 && al.IsAdminApproved == 1 && s.IsAdminApproved == 1
+                                   select new { ar, al, s };*/
 
-            var artistResult = (from ar in db.Artist
-                               where ar.ArtistID == artistID
-                               select ar).FirstOrDefault();
-            var albumResult = from al in db.Album
-                              join ar in db.Artist on al.ArtistID equals ar.ArtistID
-                              where al.ArtistID == artistID
-                              select al;
-            /*var songResult = from s in db.Song
-                             join al in db.Album on s.AlbumID equals al.AlbumID
-                             join ar in db.Artist on al.ArtistID equals ar.ArtistID
-                             where ar.ArtistID == artistID
-                             select s;*/
+                var artistResult = (from ar in db.Artist
+                                   where ar.ArtistID == artistID
+                                   select ar).FirstOrDefault();
 
-            List<Album> albumList = new List<Album>();
-            //List<Song> songList = new List<Song>();
-            foreach (var item in albumResult)
+            if (artistResult.IsAdminApproved == 1)
             {
-                albumList.Add(item);
+                var albumResult = from al in db.Album
+                                  join ar in db.Artist on al.ArtistID equals ar.ArtistID
+                                  where al.ArtistID == artistID
+                                  orderby al.ReleaseDate
+                                  select al;
+
+                List<Album> albumList = new List<Album>();
+                foreach (var item in albumResult)
+                {
+                    if (item.IsAdminApproved == 1)
+                        albumList.Add(item);
+                }
+                Artist artist = artistResult;
+
+                ArtistDetailViewModel model = new ArtistDetailViewModel();
+                model.Albums = albumList;
+                model.Name = artist.Name;
+                model.Description = artist.Description;
+                model.Image = artist.Image;
+                model.ActiveFrom = artist.ActiveFrom;
+                model.ActiveUntil = artist.ActiveUntil;
+
+                return View(model);
             }
-            /*foreach (var item in songResult)
-            {
-                albumList.Add(item.al);
-            }*/
-            Artist artist = artistResult;
-
-            ArtistDetailViewModel model = new ArtistDetailViewModel();
-            model.Albums = albumList;
-            //model.Songs = songList;
-            model.Name = artist.Name;
-            model.Description = artist.Description;
-            model.Image = artist.Image;
-            model.ActiveFrom = artist.ActiveFrom;
-            model.ActiveUntil = artist.ActiveUntil;
-
-            return View(model);
+            return Redirect("/");
         }
     }
 }

@@ -24,8 +24,8 @@ function showReportComment() {
 
 function addIndent() {
     var exp = new RegExp(/\./g);
-    var dotCount = $(this).data("value").match(exp).length;
-    if (dotCount > 0) {
-    $(this).css({ "margin-left": dotCount * 40 + "px" });
+    var dots = $(this).attr('data-value').match(exp);
+    if (dots !== null && dots.length > 0) {
+        $(this).css({ "margin-left": dots.length * 40 + "px" });
     }
 }

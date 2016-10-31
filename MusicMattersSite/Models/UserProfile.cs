@@ -13,7 +13,6 @@ namespace MusicMattersSite.Models
         public string UserID { get; set; }
         public string Bio { get; set; }
         [Required]
-        public string BackgroundColor { get; set; }
         public byte ShowEmail { get; set; }
 
         public virtual ApplicationUser AppUser { get; set; }

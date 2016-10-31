@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity;
 @model MusicMattersSite.Models.ProfileViewModel
-@Scripts.Render("~/Scripts/Own/functions.js")
+@Scripts.Render("~/Scripts/Own/profileFunctions.js")
 
 @{
     ViewBag.Title = "Profiles";
@@ -14,6 +14,11 @@
         {
             @Model.Email
         }
+        @if (User.Identity.GetUserId() == Model.UserID)
+        {
+            @Html.ActionLink("Profile Settings", "EditProfileSettings", new { userID = Model.UserID });
+        }
+
     </div>
 
     <div id="ProfileContent">
