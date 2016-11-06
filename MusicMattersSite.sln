@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMattersSite", "MusicMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMattersAdmin", "MusicMattersAdmin\MusicMattersAdmin.csproj", "{963ADB4A-0646-41C2-80B8-F7F0A69E3590}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLogic", "FileLogic\FileLogic.csproj", "{CEB22058-FEB0-406E-AEB0-8ECC704CD019}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fileservice", "Fileservice\Fileservice.csproj", "{79E765BB-6C2B-4819-857E-8BDF61BC502F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{963ADB4A-0646-41C2-80B8-F7F0A69E3590}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{963ADB4A-0646-41C2-80B8-F7F0A69E3590}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{963ADB4A-0646-41C2-80B8-F7F0A69E3590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEB22058-FEB0-406E-AEB0-8ECC704CD019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEB22058-FEB0-406E-AEB0-8ECC704CD019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEB22058-FEB0-406E-AEB0-8ECC704CD019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEB22058-FEB0-406E-AEB0-8ECC704CD019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E765BB-6C2B-4819-857E-8BDF61BC502F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E765BB-6C2B-4819-857E-8BDF61BC502F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E765BB-6C2B-4819-857E-8BDF61BC502F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E765BB-6C2B-4819-857E-8BDF61BC502F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,14 +17,15 @@ namespace MusicMattersAdmin
             InitializeComponent();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void ReportButton_Click(object sender, EventArgs e)
         {
             Form nextForm = new Reports();
+            nextForm.Show();
+        }
+
+        private void albumsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form nextForm = new Albums();
             nextForm.Show();
         }
     }

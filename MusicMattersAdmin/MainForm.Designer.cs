@@ -30,10 +30,21 @@
         {
             this.ReportButton = new System.Windows.Forms.Button();
             this.ContentButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.albumsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userArtistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.songsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flaggablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.commentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.commentHistoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aspNetUsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.artistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ReportButton
@@ -56,47 +67,120 @@
             this.ContentButton.Text = "Content";
             this.ContentButton.UseVisualStyleBackColor = true;
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(161, 178);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.ReportButton);
             this.groupBox1.Controls.Add(this.ContentButton);
-            this.groupBox1.Location = new System.Drawing.Point(36, 29);
+            this.groupBox1.Location = new System.Drawing.Point(40, 110);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 100);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Review submissions";
             // 
-            // listBox1
+            // menuStrip1
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 145);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 95);
-            this.listBox1.TabIndex = 4;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tablesToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(284, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // tablesToolStripMenuItem
+            // 
+            this.tablesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.albumsToolStripMenuItem,
+            this.artistsToolStripMenuItem,
+            this.aspNetUsersToolStripMenuItem,
+            this.commentHistoriesToolStripMenuItem,
+            this.commentsToolStripMenuItem,
+            this.flaggablesToolStripMenuItem,
+            this.flagsToolStripMenuItem,
+            this.songsToolStripMenuItem,
+            this.userArtistsToolStripMenuItem,
+            this.userProfilesToolStripMenuItem});
+            this.tablesToolStripMenuItem.Name = "tablesToolStripMenuItem";
+            this.tablesToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.tablesToolStripMenuItem.Text = "Tables";
+            // 
+            // albumsToolStripMenuItem
+            // 
+            this.albumsToolStripMenuItem.Name = "albumsToolStripMenuItem";
+            this.albumsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.albumsToolStripMenuItem.Text = "Albums";
+            this.albumsToolStripMenuItem.Click += new System.EventHandler(this.albumsToolStripMenuItem_Click);
+            // 
+            // userProfilesToolStripMenuItem
+            // 
+            this.userProfilesToolStripMenuItem.Name = "userProfilesToolStripMenuItem";
+            this.userProfilesToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.userProfilesToolStripMenuItem.Text = "UserProfiles";
+            // 
+            // userArtistsToolStripMenuItem
+            // 
+            this.userArtistsToolStripMenuItem.Name = "userArtistsToolStripMenuItem";
+            this.userArtistsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.userArtistsToolStripMenuItem.Text = "UserArtists";
+            // 
+            // songsToolStripMenuItem
+            // 
+            this.songsToolStripMenuItem.Name = "songsToolStripMenuItem";
+            this.songsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.songsToolStripMenuItem.Text = "Songs";
+            // 
+            // flagsToolStripMenuItem
+            // 
+            this.flagsToolStripMenuItem.Name = "flagsToolStripMenuItem";
+            this.flagsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.flagsToolStripMenuItem.Text = "Flags";
+            // 
+            // flaggablesToolStripMenuItem
+            // 
+            this.flaggablesToolStripMenuItem.Name = "flaggablesToolStripMenuItem";
+            this.flaggablesToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.flaggablesToolStripMenuItem.Text = "Flaggables";
+            // 
+            // commentsToolStripMenuItem
+            // 
+            this.commentsToolStripMenuItem.Name = "commentsToolStripMenuItem";
+            this.commentsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.commentsToolStripMenuItem.Text = "Comments";
+            // 
+            // commentHistoriesToolStripMenuItem
+            // 
+            this.commentHistoriesToolStripMenuItem.Name = "commentHistoriesToolStripMenuItem";
+            this.commentHistoriesToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.commentHistoriesToolStripMenuItem.Text = "CommentHistories";
+            // 
+            // aspNetUsersToolStripMenuItem
+            // 
+            this.aspNetUsersToolStripMenuItem.Name = "aspNetUsersToolStripMenuItem";
+            this.aspNetUsersToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.aspNetUsersToolStripMenuItem.Text = "AspNetUsers";
+            // 
+            // artistsToolStripMenuItem
+            // 
+            this.artistsToolStripMenuItem.Name = "artistsToolStripMenuItem";
+            this.artistsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.artistsToolStripMenuItem.Text = "Artists";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.groupBox1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -104,8 +188,18 @@
 
         private System.Windows.Forms.Button ReportButton;
         private System.Windows.Forms.Button ContentButton;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tablesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem albumsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem artistsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aspNetUsersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem commentHistoriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem commentsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem flaggablesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem flagsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem songsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem userArtistsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem userProfilesToolStripMenuItem;
     }
 }
