@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNet.Identity;
 using MusicMattersSite.Models;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 
 namespace MusicMattersSite.Controllers
 {
     public class HomeController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
             List<string> model = new List<string>();
@@ -172,7 +176,20 @@ namespace MusicMattersSite.Controllers
 
                 profileResult.FirstOrDefault().Bio = model.Bio;
 
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    Console.WriteLine(e.Message);
+                    LogError(e);
+                }
+                catch (DbEntityValidationException e)
+                {
+                    Console.WriteLine(e.Message);
+                    LogError(e);
+                }
             }
             return Redirect("/");
         }
@@ -188,7 +205,20 @@ namespace MusicMattersSite.Controllers
             flaggable.Time = DateTime.Now;
 
             db.Flaggable.Add(flaggable);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                Console.WriteLine(e.Message);
+                LogError(e);
+            }
+            catch (DbEntityValidationException e)
+            {
+                Console.WriteLine(e.Message);
+                LogError(e);
+            }
 
             return RedirectToAction("Profiles", new { UserName = model.UserName });
         }
@@ -207,9 +237,22 @@ namespace MusicMattersSite.Controllers
                 model.Comment.ParentID = ParentID;
 
                 db.Comment.Add(model.Comment);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    Console.WriteLine(e.Message);
+                    LogError(e);
+                }
+                catch (DbEntityValidationException e)
+                {
+                    Console.WriteLine(e.Message);
+                    LogError(e);
+                }
 
-                    
+
 
                 var prefixResult = from item in db.Comment
                                     where item.CommentID == model.Comment.ParentID
@@ -221,7 +264,20 @@ namespace MusicMattersSite.Controllers
 
                 sortKey += model.Comment.CommentID.ToString("D4"); //Pads the string with 4 zeroes
                 model.Comment.SortKey = sortKey;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    Console.WriteLine(e.Message);
+                    LogError(e);
+                }
+                catch (DbEntityValidationException e)
+                {
+                    Console.WriteLine(e.Message);
+                    LogError(e);
+                }
             }
             return RedirectToAction("Profiles", new { UserName = model.UserName });
         }
@@ -241,7 +297,20 @@ namespace MusicMattersSite.Controllers
                     CreateCommentHistory(commentResult, "UPD");
                     commentResult.Content = model.Comments[CommentIndex].Content;
                     commentResult.TimeEdited = DateTime.Now;
-                    db.SaveChanges();
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        LogError(e);
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        LogError(e);
+                    }
                 }
             }
 
@@ -262,7 +331,20 @@ namespace MusicMattersSite.Controllers
                 {
                     CreateCommentHistory(commentResult, "DEL");
                     db.Comment.Remove(commentResult);
-                    db.SaveChanges();
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        LogError(e);
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        LogError(e);
+                    }
                 }
             }
 
@@ -278,7 +360,20 @@ namespace MusicMattersSite.Controllers
             history.Time = comment.TimeEdited ?? comment.TimeCreated;
 
             db.CommentHistory.Add(history);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                Console.WriteLine(e.Message);
+                LogError(e);
+            }
+            catch (DbEntityValidationException e)
+            {
+                Console.WriteLine(e.Message);
+                LogError(e);
+            }
         }
 
         public ActionResult ArtistDetails(int artistID)
@@ -314,6 +409,14 @@ namespace MusicMattersSite.Controllers
                 return View(model);
             }
             return Redirect("/");
+        }
+
+        public void LogError(Exception e)
+        {
+            String file = AppDomain.CurrentDomain.BaseDirectory + "App_Data\\Log\\log.txt";
+            StreamWriter sw = new StreamWriter(file, true);
+            sw.WriteLine("(" + DateTime.Now + "): " + e.Message + " Source: " + e.Source);
+            sw.Close();
         }
     }
 }
